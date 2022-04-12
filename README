@@ -1,6 +1,10 @@
-This is a generalized lineal model based on the public data base located at: https://osf.io/3nr89/
+This is a generalized linear model based on the public database located at: https://osf.io/3nr89/
 
-In it you will see a webscraping from twitter. 
+In it, you will see a web scraping from Twitter. 
 
-The generalized lineal model pretends to understand the predictability of that all the variables has on the retweet count. 
-For this propouse i created a model based on the 
+The generalized linear model pretends to understand the predictability that all the variables have on the retweet count. 
+For this proposal I created a model based on the Poisson family, taking into consideration that the retweet count, as its name says, is a count of retweets.
+Additionally, I set a log link that allows the model to make the bridge with the model for the predictability, behaving as a linear model and assuming other variables from other families. 
+
+
+Hope you like the code... it's not finished, so I'm continuously adding pieces of the code. 
