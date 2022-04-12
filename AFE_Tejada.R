@@ -21,22 +21,20 @@ pkg(packages)
 
 
 
-'''Analisis Factorial exploratorio'''
-#split data 50
-#cargo el documento
+#read files
 data <- read_csv("Documentos/Mis articulos/T_d_c.csv")
-#Hago el split de los datos con el filtro elegido
+#i make a split of the doccument.
 data50 <-data%>% filter(retweet_count >=50)
-#corro el odelo 
+#once i see the variables, i run my model.  
 modpoisson50<-glm(retweet_count~ENTIDAD_CODIGO+favorite_count+is_retweet+Photo+Vídeo+Only_text+Url+
                   quote+hour+weekday+Hashtag_Cod+month,family= poisson, data = data50(link = "log"))
-#corro el sumario de datos
+#i make the summary of the model 
 S50<-summary(modpoisson50)
-#corro coeficientes restando 1 para ver efectivamente como queda la relación
+#i will see the coefficientes to see the predictability of the variables. 
 exp(S50coefficients)-1
-#Bondad de ajuste del modelo
+#fit indexes of the model. 
 lrtest(modpoisson50)
-#split data 100
+#split data 100... now i split the data using the count of the retweets, in this case, more than 100 retweets. 
 data <- read_csv("Documentos/Mis articulos/T_d_c.csv")
 data100 <-data%>% filter(retweet_count >=100)
 modpoisson100<-glm(retweet_count~ENTIDAD_CODIGO+favorite_count+is_retweet+Photo+Vídeo+Only_text+Url+
@@ -44,7 +42,7 @@ modpoisson100<-glm(retweet_count~ENTIDAD_CODIGO+favorite_count+is_retweet+Photo+
 S100<-summary(modpoisson100)
 exp(S100$coefficients)-1
 lrtest(modpoisson100)
-#split data 200
+#split data 200, more than 200 retweets.
 data <- read_csv("Documentos/Mis articulos/T_d_c.csv")
 data200 <-data%>% filter(retweet_count >=200)
 modpoisson200<-glm(retweet_count~ENTIDAD_CODIGO+favorite_count+is_retweet+Photo+Vídeo+Only_text+Url+
@@ -52,7 +50,7 @@ modpoisson200<-glm(retweet_count~ENTIDAD_CODIGO+favorite_count+is_retweet+Photo+
 S200<-summary(modpoisson200)
 exp(S200$coefficients)-1
 lrtest(modpoisson200)
-#split data 500
+#split data 500 more than 500 retweets.
 data <- read_csv("Documentos/Mis articulos/T_d_c.csv")
 data500 <-data%>% filter(retweet_count >=500)
 modpoisson500<-glm(retweet_count~ENTIDAD_CODIGO+favorite_count+is_retweet+Photo+Vídeo+Only_text+Url+
@@ -60,21 +58,23 @@ modpoisson500<-glm(retweet_count~ENTIDAD_CODIGO+favorite_count+is_retweet+Photo+
 S500<-summary(modpoisson500)
 exp(S500$coefficients)-1
 lrtest(modpoisson500)
-#split data 1000
+#split data 1000 finally more than 1000 retwwets. 
 data <- read_csv("Documentos/Mis articulos/T_d_c.csv")
 data1000 <-data%>% filter(retweet_count >=100)
 modpoisson<-glm(retweet_count~ENTIDAD_CODIGO+favorite_count+is_retweet+Photo+Vídeo+Only_text+Url+
                   quote+hour+weekday+Hashtag_Cod+month,family= poisson, data = data1000(link = "log"))
-S<-summary(modpoisson)
+S1000<-summary(modpoisson)
 exp(S$coefficients)-1
 lrtest(modpoisson)
-#exporto los documentos a un excel 
+
+#i create the MFCM variable with the fit indexes of all the models. 
+MFCM <- rbind(S50,S100,S200,S500,S1000)
+#write new document with the variabble MFCM
 write.table(MFCM, file="most frequent cited manuscripts source 
             covid.csv", sep=";", row.names= T) 
 #aquí engancho el data para que quede fijo
 attach(data)
-################# Lineal modelo generalizado ################################
-##############################################################################
+################# GLM -----------------------------------------------------------------------
 
 #Aquí tengo el modelo poisson con las variables correspondientes. 
 modpoisson<-glm(retweet_count~ENTIDAD_CODIGO+favorite_count+is_retweet+Photo+Vídeo+Only_text+Url+
