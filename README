@@ -2,4 +2,5 @@ This is a generalized lineal model based on the public data base located at: htt
 
 In it you will see a webscraping from twitter. 
 
-The generalized lineal model pretends to understand the predictability of the retweeet 
+The generalized lineal model pretends to understand the predictability of that all the variables has on the retweet count. 
+For this propouse i created a model based on the 
